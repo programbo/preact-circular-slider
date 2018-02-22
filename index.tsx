@@ -69,9 +69,9 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
   private padding: number
 
-  private container: HTMLDivElement | null = null
+  private container: Element | undefined
 
-  private coordinates: Point | null = null
+  private coordinates: Point | undefined
 
   private angle = 0
   private value: number
@@ -144,7 +144,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     document.removeEventListener(endEventType, endHandler as any)
   }
 
-  private handleMouseDown = (e: MouseEvent<SVGElement>) => {
+  private handleMouseDown = (e: MouseEvent) => {
     e.stopPropagation()
     this.addEventListeners(false)
 
@@ -152,7 +152,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
-  private handleTouchStart = (e: TouchEvent<SVGElement>) => {
+  private handleTouchStart = (e: TouchEvent) => {
     e.stopPropagation()
     this.addEventListeners(true)
 
@@ -160,7 +160,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
   }
 
-  private handleMouseUp = (e: MouseEvent<SVGElement>) => {
+  private handleMouseUp = (e: MouseEvent) => {
     e.stopPropagation()
     this.removeEventListeners(false)
 
@@ -168,7 +168,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteMousePosition(e), false)!)
   }
 
-  private handleTouchEnd = (e: TouchEvent<SVGElement>) => {
+  private handleTouchEnd = (e: TouchEvent) => {
     e.stopPropagation()
     this.removeEventListeners(true)
 
@@ -176,13 +176,13 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteTouchPosition(e), false)!)
   }
 
-  private handleMouseMove = (e: MouseEvent<SVGElement>) => {
+  private handleMouseMove = (e: MouseEvent) => {
     e.stopPropagation()
     const { onMove } = this.props
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
-  private handleTouchMove = (e: TouchEvent<SVGElement>) => {
+  private handleTouchMove = (e: TouchEvent) => {
     e.stopPropagation()
     const { onMove } = this.props
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
