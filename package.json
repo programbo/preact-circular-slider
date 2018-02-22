@@ -1,6 +1,6 @@
 {
   "name": "preact-circular-slider",
-  "version": "1.0.12",
+  "version": "1.0.1",
   "description": "Flexible slider widget for React",
   "main": "dist/index.js",
   "source": "index.tsx",
@@ -12,8 +12,7 @@
     "classnames": "^2.2.5",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
-    "preact": "^8.2.7",
-    "react": "^16.0.0"
+    "preact": "^8.2.7"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",
