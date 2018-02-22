@@ -1,0 +1,41 @@
+{
+  "name": "preact-circular-slider",
+  "version": "1.0.12",
+  "description": "Flexible slider widget for React",
+  "main": "dist/index.js",
+  "source": "index.tsx",
+  "typings": "dist/index.d.ts",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "d3-scale": "^1.0.6",
+    "d3-shape": "^1.2.0",
+    "preact": "^8.2.7",
+    "react": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.3",
+    "@types/d3-scale": "^1.0.10",
+    "@types/d3-shape": "^1.2.1",
+    "@types/node": "^8.0.34",
+    "typescript": "^2.5.3",
+    "typescript-cssproperties": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc && tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/programbo/preact-circular-slider.git"
+  },
+  "author": "John Lombardo <john@programbo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/programbo/preact-circular-slider/issues"
+  },
+  "homepage": "https://github.com/programbo/preact-circular-slider#readme"
+}
