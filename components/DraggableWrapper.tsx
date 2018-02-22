@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from 'preact'
-import DefaultDraggable from './Draggable'
 import { CSSProperties } from 'typescript-cssproperties'
+import DefaultDraggable from './Draggable'
 
 export interface DraggableWrapperProps {
   children?: any

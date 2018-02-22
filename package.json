@@ -19,6 +19,8 @@
     "@types/d3-scale": "^1.0.10",
     "@types/d3-shape": "^1.2.1",
     "@types/node": "^8.0.34",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.8.0",
     "typescript": "^2.5.3",
     "typescript-cssproperties": "^1.0.2"
   },

@@ -1,5 +1,5 @@
-import { Component, h } from 'preact'
 import * as classnames from 'classnames'
+import { Component, h } from 'preact'
 import { CSSProperties } from 'typescript-cssproperties'
 
 export interface DraggableProps {

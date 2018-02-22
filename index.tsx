@@ -2,17 +2,17 @@ import { Component, h } from 'preact'
 import { CSSProperties } from 'typescript-cssproperties'
 import { absoluteMousePosition, absoluteTouchPosition } from './helpers/eventHelpers'
 import {
+  absoluteContainerPosition,
   angleToValue,
-  calculateOrigin,
   calculateAngleBetweenPoints,
   calculateAngleDelta,
   calculateAngleFromOrigin,
+  calculateAngleToPoint,
+  calculateOrigin,
   calculateRadialPosition,
   calculateRadialPositionFromValue,
-  calculateAngleToPoint,
-  absoluteContainerPosition,
-  valueToRadians,
   Point,
+  valueToRadians,
 } from './helpers/geometryHelpers'
 
 import DefaultRing, { ArcProps } from './components/Arc'
@@ -50,8 +50,6 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     maxValue: 100,
     minValue: 0,
     motion: 'once',
-    onMove: value => {},
-    onMoveEnd: value => {},
     radius: 100,
     value: 0,
     size: 200,
@@ -96,6 +94,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
       this.props.maxValue,
     )
 
+    // tslint:disable-next-line no-unused-expression
     this.props.onMove &&
       this.props.onMove({ coordinates: this.coordinates, pressed: this.state.pressed, value: this.props.value! })
   }
@@ -149,6 +148,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     this.addEventListeners(false)
 
     const { onMove } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
@@ -157,6 +157,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     this.addEventListeners(true)
 
     const { onMove } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
   }
 
@@ -165,6 +166,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     this.removeEventListeners(false)
 
     const { onMoveEnd } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteMousePosition(e), false)!)
   }
 
@@ -173,18 +175,21 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     this.removeEventListeners(true)
 
     const { onMoveEnd } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteTouchPosition(e), false)!)
   }
 
   private handleMouseMove = (e: MouseEvent) => {
     e.stopPropagation()
     const { onMove } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
   private handleTouchMove = (e: TouchEvent) => {
     e.stopPropagation()
     const { onMove } = this.props
+    // tslint:disable-next-line no-unused-expression
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
   }
 

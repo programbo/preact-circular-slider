@@ -1,5 +1,5 @@
-import { Component, h } from 'preact'
 import { arc } from 'd3-shape'
+import { Component, h } from 'preact'
 import { CSSProperties } from 'typescript-cssproperties'
 
 export interface ArcProps {
