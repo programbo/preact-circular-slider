@@ -1,5 +1,6 @@
-import * as React from 'react'
+import { Component, h } from 'preact'
 import * as classnames from 'classnames'
+import { CSSProperties } from 'typescript-cssproperties'
 
 export interface DraggableProps {
   children?: any
@@ -7,10 +8,10 @@ export interface DraggableProps {
   pressed?: boolean
   rotation?: number
   size?: number
-  style?: React.CSSProperties
+  style?: CSSProperties
 }
 
-const defaultStyle: React.CSSProperties = {
+const defaultStyle: CSSProperties = {
   backgroundColor: 'black',
   borderRadius: '50%',
   boxSizing: 'border-box',

@@ -1,2 +1,3 @@
 # preact-circular-slider
-Flexible slider widget for React
+
+Flexible slider widget for Preact

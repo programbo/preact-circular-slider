@@ -1,5 +1,6 @@
-import * as React from 'react'
+import { Component, h } from 'preact'
 import { arc } from 'd3-shape'
+import { CSSProperties } from 'typescript-cssproperties'
 
 export interface ArcProps {
   startAngle?: number
@@ -7,12 +8,12 @@ export interface ArcProps {
   padding: number
   radius: number
   thickness: number
-  style?: React.CSSProperties
+  style?: CSSProperties
   mask?: JSX.Element
   [index: string]: any
 }
 
-const defaultStyle: React.CSSProperties = {
+const defaultStyle: CSSProperties = {
   position: 'absolute',
   top: 0,
   left: 0,
@@ -27,7 +28,7 @@ export default ({
   style,
   children,
   mask,
-  ...otherProps,
+  ...otherProps
 }: ArcProps): JSX.Element => {
   const arcData = arc()({
     innerRadius: radius - thickness,

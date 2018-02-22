@@ -1,5 +1,5 @@
-import * as React from 'react'
-
+import { Component, h } from 'preact'
+import { CSSProperties } from 'typescript-cssproperties'
 import { absoluteMousePosition, absoluteTouchPosition } from './helpers/eventHelpers'
 import {
   angleToValue,
@@ -42,7 +42,7 @@ export interface SliderState {
   pressed: boolean
 }
 
-class CircularSlider extends React.Component<SliderProps, SliderState> {
+class CircularSlider extends Component<SliderProps, SliderState> {
   public static defaultProps: SliderProps = {
     children: <DefaultRing radius={100} padding={10} size={40} thickness={20} />,
     draggable: undefined,
@@ -61,7 +61,7 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     pressed: false,
   }
 
-  private defaultStyle: React.CSSProperties = {
+  private defaultStyle: CSSProperties = {
     position: 'relative',
   }
 
@@ -144,7 +144,7 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     document.removeEventListener(endEventType, endHandler as any)
   }
 
-  private handleMouseDown = (e: React.MouseEvent<SVGElement>) => {
+  private handleMouseDown = (e: MouseEvent<SVGElement>) => {
     e.stopPropagation()
     this.addEventListeners(false)
 
@@ -152,7 +152,7 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
-  private handleTouchStart = (e: React.TouchEvent<SVGElement>) => {
+  private handleTouchStart = (e: TouchEvent<SVGElement>) => {
     e.stopPropagation()
     this.addEventListeners(true)
 
@@ -160,7 +160,7 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
   }
 
-  private handleMouseUp = (e: React.MouseEvent<SVGElement>) => {
+  private handleMouseUp = (e: MouseEvent<SVGElement>) => {
     e.stopPropagation()
     this.removeEventListeners(false)
 
@@ -168,7 +168,7 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteMousePosition(e), false)!)
   }
 
-  private handleTouchEnd = (e: React.TouchEvent<SVGElement>) => {
+  private handleTouchEnd = (e: TouchEvent<SVGElement>) => {
     e.stopPropagation()
     this.removeEventListeners(true)
 
@@ -176,13 +176,13 @@ class CircularSlider extends React.Component<SliderProps, SliderState> {
     onMoveEnd && onMoveEnd(this.getMovementData(absoluteTouchPosition(e), false)!)
   }
 
-  private handleMouseMove = (e: React.MouseEvent<SVGElement>) => {
+  private handleMouseMove = (e: MouseEvent<SVGElement>) => {
     e.stopPropagation()
     const { onMove } = this.props
     onMove && onMove(this.getMovementData(absoluteMousePosition(e), true)!)
   }
 
-  private handleTouchMove = (e: React.TouchEvent<SVGElement>) => {
+  private handleTouchMove = (e: TouchEvent<SVGElement>) => {
     e.stopPropagation()
     const { onMove } = this.props
     onMove && onMove(this.getMovementData(absoluteTouchPosition(e), true)!)
