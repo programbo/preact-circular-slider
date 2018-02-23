@@ -39,7 +39,7 @@ const Draggable = ({
       left: coordinates ? coordinates.x : 0,
       transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
     }}
-    className={classnames({ pressed })}
+    class={classnames({ pressed })}
   >
     {children}
   </div>

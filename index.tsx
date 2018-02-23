@@ -25,7 +25,7 @@ export interface MovementResponse {
 }
 export interface SliderProps {
   children?: any | any[]
-  className?: string
+  class?: string
   draggable?: any
   draggableOffset?: number
   maxValue?: number
@@ -103,7 +103,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     const Draggable = this.props.draggable
     return (
       <div
-        className={this.props.className}
+        class={this.props.class}
         ref={el => (this.container = el)}
         style={{ ...this.defaultStyle, width: this.props.size, height: this.props.size }}
       >
