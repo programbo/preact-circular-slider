@@ -39,6 +39,9 @@ export default ({
   })
 
   const size = (padding + radius) * 2
+  const maskId = mask ? `arcmask-${new Date().getTime()}` : null
+  const maskAttribute = mask ? `url(#${maskId})` : null
+
   return (
     <svg
       height={size}
@@ -47,15 +50,15 @@ export default ({
       style={{ ...defaultStyle, ...style }}
       {...otherProps}
     >
-      {mask && (
+      {maskId && (
         <defs>
-          <mask id="arcmask">
+          <mask id={maskId}>
             <rect width={size} height={size} fill="white" />
             {mask}
           </mask>
         </defs>
       )}
-      <g mask="url(#arcmask)">
+      <g mask={maskAttribute!}>
         <path d={arcData!} transform={`translate(${size / 2} ${size / 2})`} />
         {children}
       </g>
