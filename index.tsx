@@ -76,24 +76,15 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
   public constructor(props: SliderProps) {
     super(props)
+    this.initPosition(props)
+  }
 
-    this.padding = (this.props.size! - this.props.radius! * 2) / 2
-    this.center = {
-      x: this.props.radius! + this.padding!,
-      y: this.props.radius! + this.padding!,
-    }
-    this.value = this.props.value || 0
+  public componentWillReceiveProps(nextProps: SliderProps) {
+    console.log('props changed', nextProps)
+    this.initPosition(nextProps)
   }
 
   public componentDidMount() {
-    this.coordinates = calculateRadialPositionFromValue(
-      this.center!,
-      this.props.radius! + this.props.draggableOffset!,
-      this.props.value,
-      this.props.minValue,
-      this.props.maxValue,
-    )
-
     // tslint:disable-next-line no-unused-expression
     this.props.onMove &&
       this.props.onMove({ coordinates: this.coordinates, pressed: this.state.pressed, value: this.props.value! })
@@ -113,6 +104,23 @@ class CircularSlider extends Component<SliderProps, SliderState> {
         </DraggableWrapper>
       </div>
     )
+  }
+
+  private initPosition(props: SliderProps) {
+    this.padding = (props.size! - props.radius! * 2) / 2
+    this.center = {
+      x: props.radius! + this.padding!,
+      y: props.radius! + this.padding!,
+    }
+    this.value = props.value || 0
+    this.coordinates = calculateRadialPositionFromValue(
+      this.center!,
+      props.radius! + props.draggableOffset!,
+      props.value,
+      props.minValue,
+      props.maxValue,
+    )
+
   }
 
   private moveListenerArgs = (isTouch: boolean) => ({
