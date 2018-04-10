@@ -80,7 +80,6 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   public componentWillReceiveProps(nextProps: SliderProps) {
-    console.log('props changed', nextProps)
     this.initPosition(nextProps)
   }
 
