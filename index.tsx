@@ -63,16 +63,16 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     position: 'relative',
   }
 
-  private center: Point
+  private center: Point | undefined
 
-  private padding: number
+  private padding: number | undefined
 
   private container: Element | undefined
 
   private coordinates: Point | undefined
 
   private angle = 0
-  private value: number
+  private value: number | undefined
 
   public constructor(props: SliderProps) {
     super(props)
