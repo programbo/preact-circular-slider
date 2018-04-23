@@ -12,7 +12,7 @@ import {
   calculateRadialPosition,
   calculateRadialPositionFromValue,
   Point,
-  valueToRadians
+  valueToRadians,
 } from './helpers/geometryHelpers'
 
 import DefaultRing, { ArcProps } from './components/Arc'
@@ -52,15 +52,15 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     motion: 'once',
     radius: 100,
     value: 0,
-    size: 200
+    size: 200,
   }
 
   public state: SliderState = {
-    pressed: false
+    pressed: false,
   }
 
   private defaultStyle: CSSProperties = {
-    position: 'relative'
+    position: 'relative',
   }
 
   private center: Point = { x: 0, y: 0 }
@@ -109,7 +109,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     this.padding = (props.size! - props.radius! * 2) / 2
     this.center = {
       x: props.radius! + this.padding!,
-      y: props.radius! + this.padding!
+      y: props.radius! + this.padding!,
     }
     this.value = props.value || 0
     this.coordinates = calculateRadialPositionFromValue(
@@ -117,18 +117,18 @@ class CircularSlider extends Component<SliderProps, SliderState> {
       props.radius! + props.draggableOffset!,
       props.value,
       props.minValue,
-      props.maxValue
+      props.maxValue,
     )
   }
 
   private moveListenerArgs = (isTouch: boolean) => ({
     moveEventType: isTouch ? 'touchmove' : 'mousemove',
-    moveHandler: isTouch ? this.handleTouchMove : this.handleMouseMove
+    moveHandler: isTouch ? this.handleTouchMove : this.handleMouseMove,
   })
 
   private endListenerArgs = (isTouch: boolean) => ({
     endEventType: isTouch ? 'touchend' : 'mouseup',
-    endHandler: isTouch ? this.handleTouchEnd : this.handleMouseUp
+    endHandler: isTouch ? this.handleTouchEnd : this.handleMouseUp,
   })
 
   private addEventListeners = (isTouch: boolean) => {
