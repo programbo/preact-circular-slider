@@ -1,6 +1,6 @@
-import { Component, h } from "preact"
-import { CSSProperties } from "typescript-cssproperties"
-import { absoluteMousePosition, absoluteTouchPosition } from "./helpers/eventHelpers"
+import { Component, h } from 'preact'
+import { CSSProperties } from 'typescript-cssproperties'
+import { absoluteMousePosition, absoluteTouchPosition } from './helpers/eventHelpers'
 import {
   absoluteContainerPosition,
   angleToValue,
@@ -13,10 +13,10 @@ import {
   calculateRadialPositionFromValue,
   Point,
   valueToRadians
-} from "./helpers/geometryHelpers"
+} from './helpers/geometryHelpers'
 
-import DefaultRing, { ArcProps } from "./components/Arc"
-import DraggableWrapper from "./components/DraggableWrapper"
+import DefaultRing, { ArcProps } from './components/Arc'
+import DraggableWrapper from './components/DraggableWrapper'
 
 export interface MovementResponse {
   coordinates: Point
@@ -30,7 +30,7 @@ export interface SliderProps {
   draggableOffset?: number
   maxValue?: number
   minValue?: number
-  motion?: "loop" | "infinite" | "once"
+  motion?: 'loop' | 'infinite' | 'once'
   onMove?: (response: MovementResponse) => void
   onMoveEnd?: (response: MovementResponse) => void
   radius?: number
@@ -49,7 +49,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     draggableOffset: 0,
     maxValue: 100,
     minValue: 0,
-    motion: "once",
+    motion: 'once',
     radius: 100,
     value: 0,
     size: 200
@@ -60,7 +60,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   private defaultStyle: CSSProperties = {
-    position: "relative"
+    position: 'relative'
   }
 
   private center: Point = { x: 0, y: 0 }
@@ -122,12 +122,12 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   private moveListenerArgs = (isTouch: boolean) => ({
-    moveEventType: isTouch ? "touchmove" : "mousemove",
+    moveEventType: isTouch ? 'touchmove' : 'mousemove',
     moveHandler: isTouch ? this.handleTouchMove : this.handleMouseMove
   })
 
   private endListenerArgs = (isTouch: boolean) => ({
-    endEventType: isTouch ? "touchend" : "mouseup",
+    endEventType: isTouch ? 'touchend' : 'mouseup',
     endHandler: isTouch ? this.handleTouchEnd : this.handleMouseUp
   })
 
@@ -202,7 +202,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
   private getMovementData = (position: Point, pressed: boolean = false): MovementResponse | null => {
     const { draggableOffset, onMove, radius } = this.props
-    if (!this.container || !onMove || typeof radius === "undefined" || typeof draggableOffset === "undefined") {
+    if (!this.container || !onMove || typeof radius === 'undefined' || typeof draggableOffset === 'undefined') {
       return null
     }
 
