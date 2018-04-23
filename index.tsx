@@ -69,7 +69,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
   private container: Element | undefined
 
-  private coordinates: Point = { x: 0, y: 0 } 
+  private coordinates: Point = { x: 0, y: 0 }
 
   private angle = 0
   private value: number = 0
@@ -119,7 +119,6 @@ class CircularSlider extends Component<SliderProps, SliderState> {
       props.minValue,
       props.maxValue,
     )
-
   }
 
   private moveListenerArgs = (isTouch: boolean) => ({
@@ -160,6 +159,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   private handleTouchStart = (e: TouchEvent) => {
+    e.preventDefault()
     e.stopPropagation()
     this.addEventListeners(true)
 
