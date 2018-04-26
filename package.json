@@ -1,6 +1,6 @@
 {
   "name": "preact-circular-slider",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Flexible slider widget for Preact",
   "main": "dist/index.js",
   "source": "index.tsx",
