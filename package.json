@@ -28,7 +28,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "tsc && tsc -w",
-    "publish": "tsc && npm version patch && npm publish"
+    "prepublish": "tsc && npm version patch"
   },
   "repository": {
     "type": "git",
