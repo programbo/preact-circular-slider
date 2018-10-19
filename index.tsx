@@ -201,7 +201,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   private getMovementData = (position: Point, pressed: boolean = false): MovementResponse | null => {
-    const { draggableOffset, onMove, radius } = this.props
+    const { draggableOffset, maxValue, minValue, motion, onMove, radius } = this.props
     if (!this.container || !onMove || typeof radius === 'undefined' || typeof draggableOffset === 'undefined') {
       return null
     }
@@ -210,7 +210,12 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
     if (this.coordinates) {
       const angleInRadians = calculateAngleBetweenPoints(this.center, this.coordinates, coordinates)
-      this.value += angleToValue(angleInRadians, this.props.minValue!, this.props.maxValue!)
+      this.value += angleToValue(angleInRadians, minValue!, maxValue!)
+      if (motion === 'loop') {
+        this.value = (this.value + maxValue!) % maxValue!
+      } else if (motion === 'once') {
+        this.value = Math.max(Math.min(this.value, maxValue!), minValue!)
+      }
     }
 
     this.coordinates = coordinates
