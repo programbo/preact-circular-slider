@@ -26,7 +26,11 @@ export const calculateAngleToPoint = (container: Element, offset: Point, point: 
   return calculateAngleFromOrigin(origin, point)
 }
 
-export const calculateAngleBetweenPoints = ({ x: originX, y: originY }: Point, {x: startX, y: startY}: Point, {x: endX, y: endY}: Point) => {
+export const calculateAngleBetweenPoints = (
+  { x: originX, y: originY }: Point,
+  { x: startX, y: startY }: Point,
+  { x: endX, y: endY }: Point,
+) => {
   const startPoint = { x: startX - originX, y: startY - originY }
   const endPoint = { x: endX - originX, y: endY - originY }
   return calculateAngleDelta(startPoint, endPoint)
@@ -40,8 +44,15 @@ export const calculateRadialPosition = (container: Element, offset: Point, radiu
   }
 }
 
-export const calculateRadialPositionFromValue = (offset: Point, radius: number, value = 0, minValue = 0, maxValue = 100) => {
-  const angleInRadians = valueToRadians(value, minValue, maxValue)
+export const calculateRadialPositionFromValue = (
+  offset: Point,
+  radius: number,
+  value = 0,
+  minValue = 0,
+  maxValue = 100,
+  rotationAdjustment = 0,
+) => {
+  const angleInRadians = valueToRadians(value + maxValue * (rotationAdjustment / 360), minValue, maxValue)
   return {
     x: offset.x + radius * Math.cos(angleInRadians * Math.PI),
     y: offset.y + radius * Math.sin(angleInRadians * Math.PI),
@@ -53,6 +64,12 @@ export const absoluteContainerPosition = (container: Element) => {
   return { x, y }
 }
 
-export const valueToRadians = (value: number, minValue: number, maxValue: number) => scaleLinear().domain([minValue, maxValue]).range([0, 2])(value)
+export const valueToRadians = (value: number, minValue: number, maxValue: number) =>
+  scaleLinear()
+    .domain([minValue, maxValue])
+    .range([0, 2])(value)
 
-export const angleToValue = (angle: number, minValue: number, maxValue: number) => scaleLinear().domain([0, Math.PI * 2]).range([minValue, maxValue])(angle)
+export const angleToValue = (angle: number, minValue: number, maxValue: number) =>
+  scaleLinear()
+    .domain([0, Math.PI * 2])
+    .range([minValue, maxValue])(angle)
