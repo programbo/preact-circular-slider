@@ -2,20 +2,14 @@ import { Component, h } from 'preact'
 import { CSSProperties } from 'typescript-cssproperties'
 import { absoluteMousePosition, absoluteTouchPosition } from './helpers/eventHelpers'
 import {
-  absoluteContainerPosition,
   angleToValue,
   calculateAngleBetweenPoints,
-  calculateAngleDelta,
-  calculateAngleFromOrigin,
-  calculateAngleToPoint,
-  calculateOrigin,
   calculateRadialPosition,
   calculateRadialPositionFromValue,
   Point,
-  valueToRadians,
 } from './helpers/geometryHelpers'
 
-import DefaultRing, { ArcProps } from './components/Arc'
+import DefaultRing from './components/Arc'
 import DraggableWrapper from './components/DraggableWrapper'
 
 export interface MovementResponse {
@@ -36,6 +30,7 @@ export interface SliderProps {
   radius?: number
   value?: number
   size?: number
+  rotationAdjustment?: number
 }
 
 export interface SliderState {
@@ -53,10 +48,7 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     radius: 100,
     value: 0,
     size: 200,
-  }
-
-  public state: SliderState = {
-    pressed: false,
+    rotationAdjustment: -90,
   }
 
   private defaultStyle: CSSProperties = {
@@ -71,11 +63,11 @@ class CircularSlider extends Component<SliderProps, SliderState> {
 
   private coordinates: Point = { x: 0, y: 0 }
 
-  private angle = 0
   private value: number = 0
 
   public constructor(props: SliderProps) {
     super(props)
+    this.state = { pressed: false }
     this.initPosition(props)
   }
 
@@ -84,20 +76,23 @@ class CircularSlider extends Component<SliderProps, SliderState> {
   }
 
   public componentDidMount() {
+    const { onMove, value = 0 } = this.props
+    const { pressed } = this.state
+
     // tslint:disable-next-line no-unused-expression
-    this.props.onMove &&
-      this.props.onMove({ coordinates: this.coordinates, pressed: this.state.pressed, value: this.props.value! })
+    onMove && onMove({ coordinates: this.coordinates, pressed, value })
   }
 
   public render() {
-    const Draggable = this.props.draggable
+    const { children, class: className, draggable, size } = this.props
+    const Draggable = draggable
     return (
       <div
-        class={this.props.class}
+        class={className}
         ref={el => (this.container = el)}
-        style={{ ...this.defaultStyle, width: this.props.size, height: this.props.size }}
+        style={{ ...this.defaultStyle, width: size, height: size }}
       >
-        {this.props.children}
+        {children}
         <DraggableWrapper onMouseDown={this.handleMouseDown} onTouchStart={this.handleTouchStart}>
           {Draggable}
         </DraggableWrapper>
@@ -105,19 +100,28 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     )
   }
 
-  private initPosition(props: SliderProps) {
-    this.padding = (props.size! - props.radius! * 2) / 2
+  private initPosition({
+    size,
+    radius,
+    maxValue,
+    minValue,
+    value = 0,
+    rotationAdjustment,
+    draggableOffset,
+  }: SliderProps) {
+    this.padding = (size! - radius! * 2) / 2
     this.center = {
-      x: props.radius! + this.padding!,
-      y: props.radius! + this.padding!,
+      x: radius! + this.padding!,
+      y: radius! + this.padding!,
     }
-    this.value = props.value || 0
+    this.value = value
     this.coordinates = calculateRadialPositionFromValue(
       this.center!,
-      props.radius! + props.draggableOffset!,
-      props.value,
-      props.minValue,
-      props.maxValue,
+      radius! + draggableOffset!,
+      value,
+      minValue,
+      maxValue,
+      rotationAdjustment,
     )
   }
 
@@ -205,21 +209,23 @@ class CircularSlider extends Component<SliderProps, SliderState> {
     if (!this.container || !onMove || typeof radius === 'undefined' || typeof draggableOffset === 'undefined') {
       return null
     }
-
     const coordinates = calculateRadialPosition(this.container, this.center, radius + draggableOffset, position)
 
     if (this.coordinates) {
       const angleInRadians = calculateAngleBetweenPoints(this.center, this.coordinates, coordinates)
-      this.value += angleToValue(angleInRadians, minValue!, maxValue!)
-      if (motion === 'loop') {
-        this.value = (this.value + maxValue!) % maxValue!
-      } else if (motion === 'once') {
-        this.value = Math.max(Math.min(this.value, maxValue!), minValue!)
+      const value = this.value + angleToValue(angleInRadians, minValue!, maxValue!)
+      if (motion === 'infinite' || (value >= minValue! && value < maxValue!)) {
+        this.value = value
+        this.coordinates = coordinates
+      } else if (motion === 'loop') {
+        this.value = (value + maxValue!) % maxValue!
+        this.coordinates = coordinates
       }
+    } else {
+      this.coordinates = coordinates
     }
 
-    this.coordinates = coordinates
-    return { coordinates, value: this.value, pressed }
+    return { coordinates: this.coordinates, value: this.value, pressed }
   }
 }
 
